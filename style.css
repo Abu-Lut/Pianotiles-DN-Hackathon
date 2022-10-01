@@ -12,12 +12,12 @@ body{
     background-color: grey;
     overflow: scroll;
     overflow-x: hidden;
-    overflow-y: hid;
     outline: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .tile{
-    display: inline-block;
     height: 150px;
     width: 25%;
     background-color: white;
@@ -26,6 +26,27 @@ body{
 
 .end{
     background-color: yellow;
+}
+
+.active{
+    height: 150px;
+    width: 25%;
+    outline: black solid;
+    background-color: black;
+    font-size: 50px;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.inactive{
+    height: 150px;
+    width: 25%;
+    outline: black solid;
+    background-color: grey;
+    font-size: 50px;
+    color: white;
+    text-align: center;
 }
 
 ::-webkit-scrollbar {
