@@ -2,7 +2,12 @@ const gameContainer = document.querySelector('#gameContainer')
 console.log(gameContainer)
 tileNum = 400
 let gameOver = false
+let scoreCount = 0
+let highScore = 0
 
+if(!localStorage.getItem('high-score')){
+    localStorage.setItem('high-score','0');
+}
 // Creating tiles
 
 for (let i=0; i<tileNum; i++) {
@@ -16,7 +21,7 @@ for (let i=0; i<tileNum; i++) {
 // It will randomly allocate a black tile in each row and remove the 'tile' class to give an 'active' class instead
 
 const tileList = document.querySelectorAll('.tile')
-const letters = ['f', 'a', 's', 'd']
+const letters = ['F', 'A', 'S', 'D']
 
 // 1, 2, 3, 4,--> 1%4 == 1, 2%4 == 2 , 3%4==3, 4%4==0              randomTile = 3      tileList[2]
 // 5, 6, 7, 8 --> 5%4 == 1, 6%4 == 2, 7%4 ==3, 8%4==0              randomTile = 0, 1, 2, 3    8%4 == 0
@@ -36,7 +41,7 @@ for (let i=1; i<tileList.length+1; i++){
     if ((i%4)==randomTile){
         tileList[i-1].classList.remove('tile')       
         tileList[i-1].classList.add('active')
-        tileList[i-1].textContent = letters[i%4]
+        tileList[i-1].innerHTML = `<div class = "tile-letter"> ${letters[i%4]}</div>`
     }
 }
 
@@ -47,6 +52,7 @@ const activeList = Array.from(document.querySelectorAll('.active'))
 
 for (let tile of activeTileList){
     tile.addEventListener('click', () => {
+        increaseScore()
         tile.classList.remove('active')
         tile.classList.add('inactive')
         activeList.pop()
@@ -77,7 +83,7 @@ const endTile = document.querySelector('.end')
 let accelerator = 1
 
 const lastTile = activeList.slice(-1)[0]
-lastTile.textContent += '\n start'
+lastTile.innerHTML += '<span>start</span>'
 
 
 lastTile.addEventListener('click', () => {
@@ -127,6 +133,23 @@ let missingInterval = setInterval(() => {
     }
 }, 10)
 
+function increaseScore(){
+    scoreCount +=1
+    let score = document.getElementById("score")
+    score.textContent = scoreCount
+    // let highScore = 0
+    
+}
 
+function calculateHighScore(){
+    if (score  > highScore){
+        // ui highscore value will change
+       highScore = score
+       let highScoreDisplay = document.getElementById("high-score")
+       highScoreDisplay.textContent = highScore
+       // local storage will change
+      localStorage.setItem("high-score",highScore.toString())
 
+   }
+}
 
