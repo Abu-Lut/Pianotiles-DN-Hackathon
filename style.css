@@ -1,9 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&family=Silkscreen&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+/* ----------------FONTS-----------------*/
+:root{
+    --heading-font: 'Silkscreen', cursive;
+    --body-font: 'Roboto Mono', monospace;
+}
+
+/* ----------------COLORS-----------------*/
+:root{
+    --gameover-popup: rgba(120, 149, 178, 0.9);
+    --newbest-popup: #e5e5e5;
+    --body-background: pink;
+}
+
 *{
     padding: 0;
     margin: 0;
 }
+
 body{
     display: flex;
     flex-direction: column;
@@ -27,6 +48,13 @@ body{
     display: flex;
     flex-wrap: wrap;
 }
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
 .main-heading{
     font-family: 'Silkscreen', cursive;
     font-size: 24px;
@@ -35,19 +63,17 @@ body{
 }
 .sub-heading-container{
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-around; */
     margin-bottom: 20px;
-    /* flex-direction: column; */
+    flex-direction: column;
 }
 
 .sub-heading{
     font-size:24px ;
-    /* width: 205px; */
-    margin-left: auto;
-    margin-right: auto;
     text-align: center;
     font-family: 'Silkscreen', cursive;
 }
+
 .tile{
     height: 150px;
     width: 25%;
@@ -91,3 +117,74 @@ body{
 .tile-letter{
     margin-top: 50px;
 }
+
+.gameover-popup{
+    width: 400px;
+    height: 60vh;
+    border: 2px solid black;
+    margin: 20px;
+    background-color: #ef476f;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    font-family: var(--body-font);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content:  center;
+}
+
+.gameover-popup h1, #scoreh2{
+    font-family: var(--heading-font);
+}
+
+.gameover-popup h2{
+    font-family: 'Space Mono', monospace;
+}
+
+#gameover{
+    width: 100px;
+    height: 100px;
+}
+
+.gameover-popup h1, .gameover h2, img{
+    padding: 15px;
+}
+
+.highscore-popup h1, .highscore-popup h2, img{
+    padding: 15px;
+}
+
+#score{
+    font-family: 'Space Mono', monospace;
+    color: black;
+    font-size: 2em;
+}
+
+.highscore-popup{
+    width: 400px;
+    height: 60vh;
+    border: 2px solid black;
+    margin: 20px;
+    background-color: #06d6a0;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    font-family: var(--body-font);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content:  center;
+}
+
+.highscore-popup h1, #scoreh2{
+    font-family: var(--heading-font);
+}
+
+.highscore-popup h2{
+    font-family: 'Space Mono', monospace;
+}
+
+#highscore{
+    width: 100px;
+    height: 100px;}
