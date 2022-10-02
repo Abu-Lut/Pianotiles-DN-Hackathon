@@ -127,6 +127,12 @@ let missingInterval = setInterval(() => {
     }
 }, 10)
 
+// when white tiles are clicked, game stops
+
+document.querySelectorAll(".tile").addEventListener("click", ()=> {
+    
+})
+
 
 
 

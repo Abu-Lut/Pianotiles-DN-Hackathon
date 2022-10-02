@@ -1,3 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&family=Silkscreen&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+/* ----------------FONTS-----------------*/
+:root{
+    --heading-font: 'Silkscreen', cursive;
+    --body-font: 'Roboto Mono', monospace;
+}
+
+/* ----------------COLORS-----------------*/
+:root{
+    --gameover-popup: rgba(120, 149, 178, 0.9);
+    --newbest-popup: #e5e5e5;
+    --body-background: pink;
+}
+
 body{
     display: flex;
     justify-content: center;
@@ -9,7 +28,7 @@ body{
     height: 600px;
     min-width: 350px;
     max-width: 400px;
-    background-color: grey;
+    background-color: var(--body-background);
     overflow: scroll;
     overflow-x: hidden;
     outline: 1px solid black;
@@ -57,3 +76,68 @@ body{
     background: transparent; 
 }
 
+.gameover-popup{
+    width: 400px;
+    height: 60vh;
+    border: 2px solid black;
+    margin: 20px;
+    /* background-color: #FA7070; */
+    background-color: #ef476f;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    font-family: var(--body-font);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.gameover-popup h1, #scoreh2{
+    font-family: var(--heading-font);
+}
+
+.gameover-popup h2{
+    font-family: 'Space Mono', monospace;
+}
+
+#gameover{
+    width: 100px;
+    height: 100px;
+}
+
+#score{
+    font-family: 'Space Mono', monospace;
+    color: black;
+    font-size: 2em;
+}
+
+.highscore-popup{
+    width: 400px;
+    height: 60vh;
+    border: 2px solid black;
+    margin: 20px;
+    /* background-color: #B1D7B4; */
+    /* background-color: #A1C298; */
+    background-color: #06d6a0;
+    padding: 10px;
+    color: white;
+    text-align: center;
+    font-family: var(--body-font);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.highscore-popup h1, #scoreh2{
+    font-family: var(--heading-font);
+}
+
+.highscore-popup h2{
+    font-family: 'Space Mono', monospace;
+}
+
+#highscore{
+    width: 100px;
+    height: 100px;
+}
