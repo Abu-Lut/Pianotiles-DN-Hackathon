@@ -30,7 +30,7 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
+    margin: 10px;
     background-color: #edf6f9;
     font-family: 'EB Garamond', serif;
     /* font-family: 'Silkscreen', cursive; */
@@ -128,10 +128,20 @@ body{
     color: white;
     text-align: center;
     font-family: var(--body-font);
-    display: flex;
     align-items: center;
     flex-direction: column;
     justify-content:  center;
+    display: flex;
+    transform: translate(-8%, 10%) scale(0.1);
+    visibility: hidden;
+    position: absolute;
+    transition: transform 0.4s;
+    box-shadow: 5px 5px 5px #aaaaaa ;
+}
+
+.openPopup{
+    transform: translate(-8%, 10%) scale(1);
+    visibility: visible;
 }
 
 .gameover-popup h1, #scoreh2{
@@ -175,6 +185,7 @@ body{
     align-items: center;
     flex-direction: column;
     justify-content:  center;
+    display: none;
 }
 
 .highscore-popup h1, #scoreh2{
@@ -188,3 +199,20 @@ body{
 #highscore{
     width: 100px;
     height: 100px;}
+
+
+/*--------------- Exit and restart buttons--------*/
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    gap: 100px;
+}
+
+.btn{
+    font-size: 1em;
+    font-family: var(--heading-font);
+    background-color: #FBF2CF;
+    padding: 5px;
+    border-radius: 15%;
+}
