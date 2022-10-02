@@ -4,6 +4,7 @@ tileNum = 400
 let gameOver = false
 let scoreCount = 0
 let highScore = 0
+let vtLength
 
 if(!localStorage.getItem('high-score')){
     localStorage.setItem('high-score','0');
@@ -59,7 +60,6 @@ function gameCreator(){
             tile.classList.remove('active')
             tile.classList.add('inactive')
             visibleTiles.shift()
-            activeList.pop()
         })
     }
 
@@ -76,7 +76,7 @@ function gameCreator(){
         return (
             rect.top >= 0 &&
             rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) + 150 && 
             rect.right <= (window.innerWidth || document.documentElement.clientWidth)
         )
     }
@@ -148,34 +148,100 @@ function gameCreator(){
 
     // Checking if an black tile is missed
 
+    for (let i=activeList.length-1; i>activeList.length-5; i--){
+        visibleTiles.push(activeList[i])
+    }
+    vtLength = visibleTiles.length
 
     let options = {
         root: gameContainer,
         rootMargin: '0px',
-        threshold: 1.0
+        threshold: 1
       }
-      
-    let observer = new IntersectionObserver(()=> {
-        console.log(activeList.slice(-1)[0])
-        visibleTiles.push(activeList.slice(-1)[0])
-        activeList.pop()
+
+    let count = 0
+
+    let observer = new IntersectionObserver((entries)=> {
+        entries.forEach(entry => {
+            if (entry.isIntersecting){
+                count +=1
+                if (count>4){
+                    visibleTiles.push(entry.target)
+                    console.log(visibleTiles)
+                }
+            }
+        })
     }, options);
 
-      
+    activeList.forEach(activeTile => observer.observe(activeTile))
+
+
+
+    // let options2 = {
+    //     root: gameContainer,
+    //     rootMargin: '0px',
+    //     threshold: 0.1
+    //   }
+
+    // let observer2 = new IntersectionObserver((entries) => {
+    //     entries.forEach(entry => {
+    //         if (entry.isIntersecting) {
+    //             console.log("hello")
+    //         }
+    //         else{
+    //             stopGame()
+    //         }
+    //         entry.target.addEventListener('click', () => {
+                
+    //             observer2.unobserve(entry.target)
+    //         })
+    //     })
+    // }, options2)
+
+
+
     let missingInterval = setInterval(() => {
-        if (isInViewport(endTile)){
-            clearInterval(missingInterval)
-            console.log("YOU HAVE WON")
+        if ((visibleTiles.length>1 && !(isInViewport(visibleTiles[0])))){
+            console.log(visibleTiles[0].getBoundingClientRect())
+            stopGame()
         }
-        else{
-            observer.observe(activeList.slice(-1)[0])
-            
-            if (visibleTiles.length>1 && !isInViewport(visibleTiles[0])){
-                console.log(visibleTiles)
-                stopGame()
-            }
-        }
+        // if (vtLength<visibleTiles.length){
+        //     observer2.observe(visibleTiles[visibleTiles.length-1])
+        //     vtLength = visibleTiles.length
+        // }
     }, 10)
+
+
+    // let options2 = {
+    //     root: gameContainer,
+    //     rootMargin: '0px',
+    //     threshold: 0.5
+    // }
+
+    // let observer2 = new IntersectionObserver((entries) => {
+
+    //     if (entries[0].target.classList[0] == 'active' && !(entries[0].isIntersecting)){
+    //         stopGame()
+    //     }
+    // })
+
+
+
+      
+    // let missingInterval = setInterval(() => {
+    //     if (isInViewport(endTile)){
+    //         clearInterval(missingInterval)
+    //         console.log("YOU HAVE WON")
+    //     }
+    //     else{
+            
+            
+    //         if (visibleTiles.length>1 && !isInViewport(visibleTiles[0])){
+    //             console.log(visibleTiles)
+    //             stopGame()
+    //         }
+    //     }
+    // }, 10)
 
 
 
