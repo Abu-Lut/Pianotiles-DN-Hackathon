@@ -1,43 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>PIANO TILES </title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>PIANO TILES</title>
+  </head>
+  <body>
     <div class="main-container">
-        <div class="main-heading">
-            <h1>PIANO TILES </h1>
-        </div>
-        <div class="sub-heading-container">
-            <h2 class="sub-heading" id="highscore-label">High-Score: <span>0</span></h2>
-            <h2 class="sub-heading " id="score-label">Score: <span>0</span></h2>
-        </div>
-       
-        <div id="gameContainer">
-    
-        </div>
+      <div class="main-heading">
+        <h1>PIANO TILES</h1>
+      </div>
+      <div class="sub-heading-container">
+        <h2 class="sub-heading" id="highscore-label">
+          High-Score: <span>0</span>
+        </h2>
+        <h2 class="sub-heading" id="score-label">Score: <span>0</span></h2>
+      </div>
 
+      <div id="gameContainer">
         <div class="gameover-popup">
-        <h2>Oops, you clicked on the white tile!</h2>
-        <h1>Game over!</h1>
-        <img src="assets/game-over.png" alt="gameover-img" id="gameover">
-        <h2 id="scoreh2">Score: <div id="score">02 </div></h2>
-    </div>
+          <h2>Oops, you clicked on the white tile!</h2>
+          <h1>Game over!</h1>
+          <img src="assets/game-over.png" alt="gameover-img" id="gameover" />
+          <h2 id="scoreh2">
+            Score:
+            <div id="score"></div>
+          </h2>
+          <div class="buttons">
+            <button class="btn" id="exit">Exit</button>
+            <button class="btn" id="restart">Restart</button>
+          </div>
+        </div>
+      </div>
 
-    <div class="highscore-popup">
+      <div class="highscore-popup">
         <h2>Voila, a new best score!</h2>
         <h1>Good job!</h1>
-        <img src="assets/high-score.png" alt="highscore-img" id="highscore">
-        <h2 id="scoreh2">Score: <div id="score"> 02 </div></h2>
+        <img src="assets/high-score.png" alt="highscore-img" id="highscore" />
+        <h2 id="scoreh2">
+          Score:
+          <div id="score"></div>
+        </h2>
+      </div>
     </div>
-    
-        
-    </div>
-    
+
     <script src="index.js"></script>
-</body>
+  </body>
 </html>
