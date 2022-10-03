@@ -3,12 +3,16 @@ console.log(gameContainer);
 tileNum = 400;
 let gameOver = false;
 let scoreCount = 0;
-let highScore = 0;
+let highScore;
 let vtLength;
 
 if (!localStorage.getItem("high-score")) {
   localStorage.setItem("high-score", "0");
+}else{
+    highScore = localStorage.getItem('high-score');
+    document.querySelector('#highScore-2').textContent = highScore;
 }
+console.log(highScore)
 // Creating tiles
 
 function gameCreator() {
@@ -122,6 +126,13 @@ function gameCreator() {
     let score = document.getElementById("score-2");
     score.textContent = scoreCount;
     // let highScore = 0
+
+    // checking if scoreCount beats high score or not
+    if(scoreCount > parseInt(localStorage.getItem('high-score'))){
+        highScore = scoreCount;
+        localStorage.setItem('high-score',highScore);
+        document.querySelector('#highScore-2').textContent = highScore;
+    }
   }
 
   // GAME OVER POPUP
