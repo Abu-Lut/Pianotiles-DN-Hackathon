@@ -151,7 +151,7 @@ function gameCreator() {
 
   let scrollInterval2
   function stopGame(lastTile = false) {
-    if (lastTile ){
+    if (lastTile){
       gameEndedCard.querySelector('#highscoreReal').textContent = scoreCount
       gameEndedCard.classList.add("openPopup2")
     }
