@@ -209,7 +209,7 @@ function gameCreator() {
   let missingInterval = setInterval(() => {
     if (visibleTiles.length > 1 && !isInViewport(visibleTiles[0])) {
       console.log(visibleTiles[0].getBoundingClientRect());
-      gameoverCard.querySelector('#gameOverMessage').textContent = 'Oops, you missed black tile!'
+      gameoverCard.querySelector('#gameOverMessage').textContent = 'Oops, you missed a black tile!'
       stopGame();
     }
     // if (vtLength<visibleTiles.length){
