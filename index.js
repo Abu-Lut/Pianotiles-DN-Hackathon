@@ -5,6 +5,9 @@ let gameOver = false;
 let scoreCount = 0;
 let highScore;
 let vtLength;
+var lastTileGlobal;
+
+let visibleTiles = [];
 
 if (!localStorage.getItem("high-score")) {
   localStorage.setItem("high-score", "0");
@@ -46,7 +49,7 @@ function gameCreator() {
     if (i % 4 == randomTile) {
       tileList[i - 1].classList.remove("tile");
       tileList[i - 1].classList.add("active");
-      tileList[i - 1].innerHTML = `<div class = "tile-letter"> ${
+      tileList[i - 1].innerHTML = `<div class = "tile-letter">${
         letters[i % 4]
       }</div>`;
     }
@@ -56,7 +59,7 @@ function gameCreator() {
 
   const activeList = Array.from(document.querySelectorAll(".active"));
 
-  let visibleTiles = [];
+   visibleTiles = [];
   // Clicking an 'active' tile will make it inactive
 
   for (let tile of activeTileList) {
@@ -90,6 +93,7 @@ function gameCreator() {
   let accelerator = 1;
 
   const lastTile = activeList.slice(-1)[0];
+  lastTileGlobal = lastTile;
   lastTile.innerHTML += "<span>start</span>";
 
   let scrollInterval;
@@ -253,6 +257,48 @@ function gameCreator() {
     document.querySelector('#score-2').textContent = 0;
     gameCreator();
   });
+
+  
+
+
+// --------keyborad functionality---------------------
+
+document.addEventListener('keydown',(event)=>{
+    let key = event.key.toLowerCase();
+    if(key == 'a' || key == 's' || key == 'd' ||key == 'f' ){
+        let lastActiveTile = visibleTiles[0];
+        // console.log(lastActiveTile.querySelector('.tile-letter').textContent.toLowerCase())
+        let lastTileTextValue = lastActiveTile.querySelector('.tile-letter').textContent.toLowerCase()
+        if(lastTileTextValue == key){
+            increaseScore();
+            let tile = visibleTiles[0]
+
+            if(tile.isEqualNode(lastTileGlobal)){
+                scrollInterval = setInterval(() => {
+                    if (isInViewport(endTile)) {
+                        clearInterval(scrollInterval);
+                    } else {
+                        gameContainer.scrollBy(0, -accelerator);
+                        accelerator += 0.001;
+                    }
+                    // console.log(isInViewport(endTile))
+                    // console.log(accelerator)
+                    }, 10);
+            }
+            // visibleTiles[0].remove('active');
+            // visibleTiles[0].add('inactive');
+            tile.classList.remove("active");
+            tile.classList.add("inactive");
+            visibleTiles.shift()
+        }else{
+            gameoverCard.querySelector('#gameOverMessage').textContent = 'Oops, you pressed the wrong key!'
+            stopGame();
+        }
+    }
+})
+
+
+
 }
 
 gameCreator();
@@ -267,3 +313,6 @@ function calculateHighScore() {
     localStorage.setItem("high-score", highScore.toString());
   }
 }
+
+
+
