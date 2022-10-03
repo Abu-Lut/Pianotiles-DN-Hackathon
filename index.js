@@ -138,6 +138,7 @@ function gameCreator() {
   // GAME OVER POPUP
 
   function stopGame() {
+    gameoverCard.querySelector('#score').textContent = scoreCount;
     gameoverCard.classList.add("openPopup");
     clearInterval(scrollInterval);
     // clearInterval(acceleratorInterval);
@@ -150,6 +151,7 @@ function gameCreator() {
   whiteTiles.forEach((item) =>
     item.addEventListener("click", () => {
       item.style.backgroundColor = "red";
+      gameoverCard.querySelector('#gameOverMessage').textContent = 'Oops, you clicked on the white tile!'
       stopGame();
     })
   );
@@ -207,6 +209,7 @@ function gameCreator() {
   let missingInterval = setInterval(() => {
     if (visibleTiles.length > 1 && !isInViewport(visibleTiles[0])) {
       console.log(visibleTiles[0].getBoundingClientRect());
+      gameoverCard.querySelector('#gameOverMessage').textContent = 'Oops, you missed black tile!'
       stopGame();
     }
     // if (vtLength<visibleTiles.length){
