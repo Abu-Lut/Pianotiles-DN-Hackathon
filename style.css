@@ -185,7 +185,23 @@ body{
     align-items: center;
     flex-direction: column;
     justify-content:  center;
-    display: none;
+    transform: translate(-8%, 42%) scale(0.1);
+    transition: transform 0.4s;
+    box-shadow: 5px 5px 5px #aaaaaa ;
+    position: absolute;
+    visibility: hidden;
+    /* display: none; */
+}
+
+.openPopup2{
+    transform: translate(-8%, 42%) scale(1);
+    visibility: visible;
+}
+
+#highscoreReal{
+    font-family: 'Space Mono', monospace;
+    color: black;
+    font-size: 2em;
 }
 
 .highscore-popup h1, #scoreh2{

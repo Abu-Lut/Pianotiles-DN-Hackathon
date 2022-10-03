@@ -1,11 +1,12 @@
 const gameContainer = document.querySelector("#gameContainer");
 console.log(gameContainer);
-tileNum = 400;
+tileNum = 200;
 let gameOver = false;
 let scoreCount = 0;
 let highScore;
 let vtLength;
 var lastTileGlobal;
+let gameCount = 0
 
 let visibleTiles = [];
 
@@ -17,8 +18,8 @@ if (!localStorage.getItem("high-score")) {
 }
 console.log(highScore)
 // Creating tiles
-
 function gameCreator() {
+  gameCount +=1
   for (let i = 0; i < tileNum; i++) {
     let tile = document.createElement("div");
     tile.classList.add("tile");
@@ -89,6 +90,13 @@ function gameCreator() {
   }
 
   const endTile = document.querySelector(".end");
+  
+  let options3 = {
+    threshold: 1
+  }
+  const observer3 = new IntersectionObserver((entries) => entries[0].isIntersecting && stopGame(true), options3)
+  observer3.observe(endTile)
+
 
   let accelerator = 1;
 
@@ -96,16 +104,13 @@ function gameCreator() {
   lastTileGlobal = lastTile;
   lastTile.innerHTML += "<span>start</span>";
 
-  let scrollInterval;
-
+  let scrollInterval
   lastTile.addEventListener("click", () => {
-    scrollInterval = setInterval(() => {
-      if (isInViewport(endTile)) {
-        clearInterval(scrollInterval);
-      } else {
+      scrollInterval = setInterval(() => {
+
         gameContainer.scrollBy(0, -accelerator);
         accelerator += 0.001;
-      }
+    
       // console.log(isInViewport(endTile))
       // console.log(accelerator)
     }, 10);
@@ -140,17 +145,26 @@ function gameCreator() {
   }
 
   // GAME OVER POPUP
+  let whiteTiles = document.querySelectorAll(".tile");
+  let gameoverCard = document.querySelector(".gameover-popup");
+  let gameEndedCard = document.querySelector(".highscore-popup")
 
-  function stopGame() {
-    gameoverCard.querySelector('#score').textContent = scoreCount;
-    gameoverCard.classList.add("openPopup");
+  let scrollInterval2
+  function stopGame(lastTile = false) {
+    if (lastTile ){
+      gameEndedCard.querySelector('#highscoreReal').textContent = scoreCount
+      gameEndedCard.classList.add("openPopup2")
+    }
+    else {
+      gameoverCard.querySelector('#score').textContent = scoreCount;
+      gameoverCard.classList.add("openPopup");
+    }
     clearInterval(scrollInterval);
+    clearInterval(scrollInterval2)
     // clearInterval(acceleratorInterval);
     clearInterval(missingInterval);
   }
 
-  let whiteTiles = document.querySelectorAll(".tile");
-  let gameoverCard = document.querySelector(".gameover-popup");
 
   whiteTiles.forEach((item) =>
     item.addEventListener("click", () => {
@@ -249,21 +263,33 @@ function gameCreator() {
   //     }
   // }, 10)
 
-  document.getElementById("restart").addEventListener("click", () => {
+  let restartButtons = document.querySelectorAll(".restart")
+  
+  restartButtons.forEach(item => item.addEventListener("click", () => {
     gameoverCard.classList.remove("openPopup");
+    gameEndedCard.classList.remove("openPopup2")
     gameContainer.innerHTML = "";
     gameContainer.appendChild(gameoverCard);
     scoreCount = 0;
     document.querySelector('#score-2').textContent = 0;
     gameCreator();
-  });
+  }))
+  
 
   
 
 
 // --------keyborad functionality---------------------
+console.log(gameCount)
 
-document.addEventListener('keydown',(event)=>{
+  if (gameCount >1) {
+    console.log("gameCount is greater than 1")
+    document.removeEventListener('keydown', keyFunctionality)
+  }
+
+  document.addEventListener('keydown', keyFunctionality)
+
+  function keyFunctionality(event) {
     let key = event.key.toLowerCase();
     if(key == 'a' || key == 's' || key == 'd' ||key == 'f' ){
         let lastActiveTile = visibleTiles[0];
@@ -272,15 +298,14 @@ document.addEventListener('keydown',(event)=>{
         if(lastTileTextValue == key){
             increaseScore();
             let tile = visibleTiles[0]
-
+  
             if(tile.isEqualNode(lastTileGlobal)){
-                scrollInterval = setInterval(() => {
-                    if (isInViewport(endTile)) {
-                        clearInterval(scrollInterval);
-                    } else {
+              
+                scrollInterval2 = setInterval(() => {
+
                         gameContainer.scrollBy(0, -accelerator);
                         accelerator += 0.001;
-                    }
+
                     // console.log(isInViewport(endTile))
                     // console.log(accelerator)
                     }, 10);
@@ -290,14 +315,12 @@ document.addEventListener('keydown',(event)=>{
             tile.classList.remove("active");
             tile.classList.add("inactive");
             visibleTiles.shift()
-        }else{
+        } else{
             gameoverCard.querySelector('#gameOverMessage').textContent = 'Oops, you pressed the wrong key!'
             stopGame();
         }
     }
-})
-
-
+  }
 
 }
 
@@ -313,6 +336,8 @@ function calculateHighScore() {
     localStorage.setItem("high-score", highScore.toString());
   }
 }
+
+
 
 
 

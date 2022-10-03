@@ -3,3 +3,5 @@ scroll-x: hidden;
 addEventListener("mousewheel", e => e.preventDefault())
 
 element.scrollBy(xScroll, yScroll)
+
+.isEqualNode()   //Check if 2 DOM nodes are the same
